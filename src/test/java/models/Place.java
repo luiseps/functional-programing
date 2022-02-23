@@ -2,6 +2,8 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Place {
 
     private String placeName;
@@ -13,6 +15,7 @@ public class Place {
     public Place(){
         super();
     }
+
     public Place(String placeName, String longitude, String state, String stateAbbreviation, String latitude) {
         this.placeName = placeName;
         this.longitude = longitude;
@@ -66,13 +69,15 @@ public class Place {
     }
 
     @Override
-    public String toString() {
-        return "Place{" +
-                "placeName='" + placeName + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", state='" + state + '\'' +
-                ", stateAbbreviation='" + stateAbbreviation + '\'' +
-                ", latitude='" + latitude + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return Objects.equals(placeName, place.placeName) && Objects.equals(longitude, place.longitude) && Objects.equals(state, place.state) && Objects.equals(stateAbbreviation, place.stateAbbreviation) && Objects.equals(latitude, place.latitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placeName, longitude, state, stateAbbreviation, latitude);
     }
 }

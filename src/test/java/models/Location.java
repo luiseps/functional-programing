@@ -4,6 +4,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Location {
 
@@ -60,12 +61,15 @@ public class Location {
     }
 
     @Override
-    public String toString() {
-        return "Location{" +
-                "postCode='" + postCode + '\'' +
-                ", country='" + country + '\'' +
-                ", countryAbbreviation='" + countryAbbreviation + '\'' +
-                ", places=" + places.toString() +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(postCode, location.postCode) && Objects.equals(country, location.country) && Objects.equals(countryAbbreviation, location.countryAbbreviation) && Objects.equals(places, location.places);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postCode, country, countryAbbreviation, places);
     }
 }
